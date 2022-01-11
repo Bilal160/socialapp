@@ -1,0 +1,39 @@
+{% extends 'main.html' %} 
+{% block content %}
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+</style>
+<a href="{% url 'createroom' %}">Create Room</a>
+        <hr>
+        <h5>{{room_count}} Rooms Found</h5>
+<div class="home-container">
+    <div >
+        {% if request.user.is_authenticated %}
+        <h2><a href="{% url 'logout' %}">Logout</a></h2>
+        {% else %}
+        <h2><a href="{% url 'login' %}">Login</a></h2>
+        {% endif %}
+        <h3>Browse Topics</h3>
+        <hr>
+        <h3><a href="{% url 'home' %}">All<br></a></h3>
+        {% for topic in topics %}
+        <h3><a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}<br></a></h3>
+    
+        {% endfor %}
+    </div>
+          
+
+    <div>
+
+        {% include 'feed_componenets.html' %}
+    </div>
+
+    <div class="recent-activity">
+        {% include 'recent_activity.html' %}
+    </div>
+</div>
+
+{% endblock %}
