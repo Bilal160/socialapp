@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% comment %} <div class="delete_form">
+    Delete Room
+    <form action="" method="post">
+        {% csrf_token %}
+        <h3>Are You Sure to want delete this room '{{room.name}}'</h3>
+        <a href="{% url 'home' %}">Cancel</a>
+        <input type="submit" value="Confirm">
+    </form>
+</div> {% endcomment %}
+
+
+{% endblock %}

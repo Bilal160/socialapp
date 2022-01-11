@@ -1,0 +1,45 @@
+{% extends 'main.html' %} 
+{% block content %}
+
+<style>
+    .room-block{
+        display:grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
+
+<div class="room-block">
+    <div class="comment">
+        <div class="comment-wrapper">
+            <h1>{{room.name}}</h1> <small>created by @{{room.host}} {{room.crated|timesince}} ago</small>
+            <h3>{{room.description}}</h3>
+            <h5>Topic : {{room.topic}}
+            <h2>Conversation</h2>
+            <hr>
+            {% for messages in count_messages %}
+                <h5><b><a href="{% url 'profile' messages.user.id %}">@{{messages.user}}</a> - {{messages.crated|timeuntil}} ago</b><br></h5>
+                {{messages}}
+                <hr>
+            {% endfor %}
+        </div>
+        {% if request.user.is_authenticated %}
+
+        <div class="comment-section">
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Enter message here...">
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="participants">
+        <h2>Participants</h2>
+        {% for user in participants %}
+            <li>
+                @{{user.username}}
+            </li>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
